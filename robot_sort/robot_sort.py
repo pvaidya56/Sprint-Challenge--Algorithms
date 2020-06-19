@@ -95,9 +95,36 @@ class SortingRobot:
     def sort(self):
         """
         Sort the robot's list.
+        - turn on light
+        - pick up first item
+        - loop - while light is on
+        - move to the right and check items
+            - if item is bigger, then swap
+        - one it's at the end, start moving left
+        - keep checking until none, then swap
+        - if it is able to move right, then move right, repeat process
+        - if it can't move right, turn off the light.
         """
-        # Fill this out
-        pass
+        self.swap_item()
+        self.set_light_on()
+
+        while self.light_is_on() == True:
+            while self.can_move_right():
+                self.move_right()
+                if self.compare_item() == 1:
+                    self.swap_item()
+                
+            while self.compare_item() != None:
+                self.move_left()
+
+            self.swap_item()
+
+            if self.can_move_right() == False:
+                self.set_light_off()
+            else:
+                self.move_right()
+                self.swap_item()
+                    
 
 
 if __name__ == "__main__":
